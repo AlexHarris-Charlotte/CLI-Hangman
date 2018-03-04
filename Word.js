@@ -3,7 +3,7 @@ const letter = require('./letter');
 // Constructor
 function Word(fruit) {
     this.fruit = fruit,
-    this.standInName = function() {
+    this.createWord = function() {
             fruit.reduce((acc, letter) => {
                 return acc += letter.guessed();
             }, '')
@@ -15,7 +15,6 @@ function Word(fruit) {
     }
 }
 
-const apples = new Word(applesObject);
 
 module.exports = {Word};
 

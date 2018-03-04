@@ -4,10 +4,9 @@ function Letter(letter) {
     this.guessedStatus = false,
     this.guessed = function() {
         if(this.guessedStatus){
-            console.log(this.letter);
+            // console.log(this.letter);
             return this.letter;
         } else {
-            console.log('_');
             return "_"
         }
     }
