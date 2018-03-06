@@ -13,7 +13,6 @@ function Letter(letter) {
     this.letterCheck = function(letter) {
         if(letter === this.letter) {
             this.guessedStatus = true;
-            console.log(`Wthin lettercheck ${this.guessedStatus}`)
         }
     }
 };

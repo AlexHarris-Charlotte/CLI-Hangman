@@ -75,17 +75,15 @@ randomWord = function () {
             words.splice(words.indexOf(randomWord), 1);
         }
     }
-    console.log(randomWord);
-    let wordDisplay = ''
+    let wordDisplay = '\n   '
     for(var i = 0; i < randomWord.length; i++) {
         wordDisplay += randomWord[i].guessed()
     }
     console.log(wordDisplay);
-
     return randomWord
 }
 
-
+let guessCount = 7;
 function guessALetter(rand) {
     inquirer.prompt([
         {
@@ -96,20 +94,59 @@ function guessALetter(rand) {
     
     ])
     .then(answers => {
-        let wordDisplay = '';
-        for(var i = 0; i < rand.length; i++) {
-            if (answers.userResponse === rand[i].letter) {
-                rand[i].letterCheck(answers.userResponse);
-            }
-            for(var i = 0; i < rand.length; i++) {
+        let usersGuess = answers.userResponse;
+        let concatenatedLetters = '';
+        let wordDisplay = ''
+        let response;
+
+        for (var i = 0; i < rand.length; i++) {
+            concatenatedLetters += rand[i].letter
+        }
+
+        if (concatenatedLetters.indexOf(usersGuess) !== -1 ) {
+            for (var i = 0; i < rand.length; i++) {
+                rand[i].letterCheck(usersGuess);
                 wordDisplay += rand[i].guessed()
             }
-            console.log(wordDisplay);
+            console.log(`\nGuesses Remaining ${guessCount}`)
+        } else {
+            for (var i = 0; i < rand.length; i++) {
+                rand[i].letterCheck(usersGuess);
+                wordDisplay += rand[i].guessed()
+            }
+            guessCount--;
+            console.log(`\nGuesses Remaining ${guessCount}`)
+        }
 
-            // console.log(rand[i].letter);
+
+
+
+        // Todo List:
+        // Set up a string of previous userGuesses so that they cannot repeat previous guesses
+
+
+        console.log(wordDisplay)
+    
+
+
+        if (wordDisplay === concatenatedLetters) {
+            console.log('\nWINNER!!!');
+            gameStart();
+        } else if (guessCount !== 0) {
+            guessALetter(rand);
+        } else if (guessCount === 0) {
+            console.log('\nGame Over');
+            gameStart();
         }
     });
 }
 
+// Need to add recursion to guessALetter Function
 
 
+// function wordStatus(rand, usersGuess, wordDisplay) {
+//     for (var i = 0; i < rand.length; i++) {
+//         rand[i].letterCheck(usersGuess);
+//         wordDisplay += rand[i].guessed()
+//     }
+// }
