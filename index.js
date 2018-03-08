@@ -2,6 +2,8 @@ const letter = require('./Letter');
 const word = require('./Word');
 const inquirer = require('inquirer');
 
+// Create a letter object for each letter in the alphabet and store in array
+
 const letterObjects = [];
 const alphabet = `abcdefghijklmnopqrstuvwxyz`;
 
@@ -24,6 +26,8 @@ wordObject = (str) => {
     return wordArray;
 }
 
+// Create Words and store them in an array
+
 let applesObject = wordObject('apples');
 let orangesObject = wordObject('oranges');
 let strawberriesObject = wordObject('strawberries');
@@ -32,6 +36,8 @@ let kiwiObject = wordObject('kiwi');
 
 const words = [applesObject, orangesObject, strawberriesObject, dragonFruitObject, kiwiObject];
 
+
+gameStart();
 
 
 
@@ -59,17 +65,6 @@ function gameStart() {
         }
     });
 }
-
-gameStart();
-
-
-// Need to create a game function
-// At the start of the game function, we will store a random object from the words array into
-    // a variable
-// Need to use inquirer to prompt the user for guesses and keep track
-
-
-
 
 function displayWord(guessCount) {
     guessALetter(randomWord(), guessCount);
