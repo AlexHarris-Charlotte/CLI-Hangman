@@ -38,8 +38,8 @@ const words = [applesObject, orangesObject, strawberriesObject, dragonFruitObjec
 function gameStart() {
     for(var i = 0; i < words.length; i++) {
         for(var j = 0; j < words[i].length; j++) {
-            words[j].guessedStatus = false;
-            console.log(words[j].guessedStatus);
+            words[i][j].guessedStatus = false;
+            console.log(words[i][j].guessedStatus);
         }
     }
     inquirer.prompt([
@@ -88,7 +88,7 @@ randomWord = function () {
         wordDisplay += randomWord[i].guessed()
     }
     console.log(`word`, wordDisplay);
-    // console.log(randomWord);
+    console.log(randomWord);
     return randomWord
 }
 
