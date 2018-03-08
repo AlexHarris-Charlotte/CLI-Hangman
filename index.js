@@ -34,7 +34,14 @@ const words = [applesObject, orangesObject, strawberriesObject, dragonFruitObjec
 
 
 
+
 function gameStart() {
+    for(var i = 0; i < words.length; i++) {
+        for(var j = 0; j < words[i].length; j++) {
+            words[j].guessedStatus = false;
+            console.log(words[j].guessedStatus);
+        }
+    }
     inquirer.prompt([
         {
             type: 'confirm',
@@ -44,8 +51,9 @@ function gameStart() {
     
     ])
     .then(answers => {
+        let guessCount = 7;
         if (answers.userResponse) {
-            displayWord();
+            displayWord(guessCount);
         } else {
             console.log(`Fine, be that way`);
         }
@@ -63,8 +71,8 @@ gameStart();
 
 
 
-function displayWord() {
-    guessALetter(randomWord());
+function displayWord(guessCount) {
+    guessALetter(randomWord(), guessCount);
 }
 
 
@@ -79,12 +87,16 @@ randomWord = function () {
     for(var i = 0; i < randomWord.length; i++) {
         wordDisplay += randomWord[i].guessed()
     }
-    console.log(wordDisplay);
+    console.log(`word`, wordDisplay);
+    // console.log(randomWord);
     return randomWord
 }
 
-let guessCount = 7;
-function guessALetter(rand) {
+// let guessCount = 7;
+
+function guessALetter(rand, count) {
+    let wordDisplay = ''
+    // guessCount = count;
     inquirer.prompt([
         {
             type: 'input',
@@ -96,7 +108,6 @@ function guessALetter(rand) {
     .then(answers => {
         let usersGuess = answers.userResponse;
         let concatenatedLetters = '';
-        let wordDisplay = ''
         let response;
 
         for (var i = 0; i < rand.length; i++) {
@@ -108,14 +119,14 @@ function guessALetter(rand) {
                 rand[i].letterCheck(usersGuess);
                 wordDisplay += rand[i].guessed()
             }
-            console.log(`\nGuesses Remaining ${guessCount}`)
+            console.log(`\nGuesses Remaining ${count}`)
         } else {
             for (var i = 0; i < rand.length; i++) {
                 rand[i].letterCheck(usersGuess);
                 wordDisplay += rand[i].guessed()
             }
-            guessCount--;
-            console.log(`\nGuesses Remaining ${guessCount}`)
+            count--;
+            console.log(`\nGuesses Remaining ${count}`)
         }
 
 
@@ -132,21 +143,13 @@ function guessALetter(rand) {
         if (wordDisplay === concatenatedLetters) {
             console.log('\nWINNER!!!');
             gameStart();
-        } else if (guessCount !== 0) {
-            guessALetter(rand);
-        } else if (guessCount === 0) {
+        } else if (count !== 0) {
+            guessALetter(rand, count);
+        } else if (count === 0) {
             console.log('\nGame Over');
             gameStart();
         }
     });
 }
 
-// Need to add recursion to guessALetter Function
 
-
-// function wordStatus(rand, usersGuess, wordDisplay) {
-//     for (var i = 0; i < rand.length; i++) {
-//         rand[i].letterCheck(usersGuess);
-//         wordDisplay += rand[i].guessed()
-//     }
-// }
