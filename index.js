@@ -45,7 +45,6 @@ function gameStart() {
     for(var i = 0; i < words.length; i++) {
         for(var j = 0; j < words[i].length; j++) {
             words[i][j].guessedStatus = false;
-            console.log(words[i][j].guessedStatus);
         }
     }
     inquirer.prompt([
@@ -82,16 +81,13 @@ randomWord = function () {
     for(var i = 0; i < randomWord.length; i++) {
         wordDisplay += randomWord[i].guessed()
     }
-    console.log(`word`, wordDisplay);
-    console.log(randomWord);
+    console.log(wordDisplay);
     return randomWord
 }
 
-// let guessCount = 7;
 
 function guessALetter(rand, count) {
     let wordDisplay = ''
-    // guessCount = count;
     inquirer.prompt([
         {
             type: 'input',
@@ -123,17 +119,7 @@ function guessALetter(rand, count) {
             count--;
             console.log(`\nGuesses Remaining ${count}`)
         }
-
-
-
-
-        // Todo List:
-        // Set up a string of previous userGuesses so that they cannot repeat previous guesses
-
-
         console.log(wordDisplay)
-    
-
 
         if (wordDisplay === concatenatedLetters) {
             console.log('\nWINNER!!!');
